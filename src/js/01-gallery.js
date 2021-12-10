@@ -1,21 +1,20 @@
 import { galleryItems } from "./gallery-items.js";
 
 const instance = basicLightbox.create(`
-    <div class="modal">
-        <img src="" width="400" height="200">
+    <div>
+        <img src="" width="100%" height="100%">
     </div>
 `);
 
 const refs = {
   gallery: document.querySelector(".gallery"),
-  galleryItem: document.querySelector(".gallery__item"),
-  linkImage: document.querySelector(".gallery__link"),
-  image: document.querySelector(".gallery__image"),
-  originalImage: document.querySelector("img[data-source]"),
   modalImage: instance.element().querySelector("img"),
+  body: document.querySelector("body"),
+  bodyHidden: document.querySelector("hidden"),
 };
 
 //===== Создаем галерею из массива =====
+
 const galleryContainer = document.querySelector(".gallery");
 const cardsMarkup = createGalleryCardsMarkup(galleryItems);
 
@@ -38,22 +37,31 @@ function createGalleryCardsMarkup(items) {
     .join("");
 }
 
-//=====  =====
+//===== Открытие/закрытие мод. окна =====
 
-refs.gallery.addEventListener("click", onModalOpen);
-refs.modalImage.addEventListener("click", onModalClose);
+refs.gallery.addEventListener("click", onOpenModal);
+refs.modalImage.addEventListener("click", onCloseModal);
 
-function onModalOpen(event) {
+function onOpenModal(event) {
+  window.addEventListener("keydown", onEscKeyPress);
   event.preventDefault();
 
   if (event.target.nodeName !== "IMG") return;
   refs.modalImage.src = event.target.dataset.source;
+  refs.body.style.overflow = "hidden";
 
   instance.show();
 }
 
-function onModalClose() {
+function onCloseModal() {
+  window.removeEventListener("keydown", onEscKeyPress);
+
   instance.close();
+  refs.body.style.overflow = "";
 }
 
-// console.log(galleryI?tems);
+function onEscKeyPress(event) {
+  const ESC_KEY_CODE = "Escape";
+
+  if (event.code === ESC_KEY_CODE) onCloseModal();
+}
