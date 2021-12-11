@@ -2,7 +2,7 @@ import { galleryItems } from "./gallery-items.js";
 
 const instance = basicLightbox.create(`
     <div>
-        <img src="" width="100%" height="100%">
+        <img src="" width="100%" height="100%" />
     </div>
 `);
 
@@ -10,7 +10,6 @@ const refs = {
   gallery: document.querySelector(".gallery"),
   modalImage: instance.element().querySelector("img"),
   body: document.querySelector("body"),
-  bodyHidden: document.querySelector("hidden"),
 };
 
 //===== Создаем галерею из массива =====
@@ -37,7 +36,7 @@ function createGalleryCardsMarkup(items) {
     .join("");
 }
 
-//===== Открытие/закрытие мод. окна =====
+// ===== Открытие/закрытие мод. окна =====
 
 refs.gallery.addEventListener("click", onOpenModal);
 refs.modalImage.addEventListener("click", onCloseModal);
