@@ -54,7 +54,6 @@ function onOpenModal(event) {
 
 function onCloseModal() {
   window.removeEventListener("keydown", onEscKeyPress);
-  refs.gallery.removeEventListener("click", onCloseModal);
   refs.modalImage.addEventListener("click", onCloseModal);
 
   instance.close();
