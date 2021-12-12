@@ -39,10 +39,11 @@ function createGalleryCardsMarkup(items) {
 // ===== Открытие/закрытие мод. окна =====
 
 refs.gallery.addEventListener("click", onOpenModal);
-refs.modalImage.addEventListener("click", onCloseModal);
 
 function onOpenModal(event) {
   window.addEventListener("keydown", onEscKeyPress);
+  refs.modalImage.addEventListener("click", onCloseModal);
+
   event.preventDefault();
 
   if (event.target.nodeName !== "IMG") return;
@@ -54,7 +55,7 @@ function onOpenModal(event) {
 
 function onCloseModal() {
   window.removeEventListener("keydown", onEscKeyPress);
-  refs.modalImage.addEventListener("click", onCloseModal);
+  refs.modalImage.removeEventListener("click", onCloseModal);
 
   instance.close();
 
